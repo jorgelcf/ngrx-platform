@@ -38,9 +38,15 @@ export type UpdateNum<T> = {
 
 export type Update<T> = UpdateStr<T> | UpdateNum<T>;
 
+export type Operation = {
+  action: 'A' | 'U' | 'D' | undefined;
+  ids: string[] | number[];
+};
+
 export interface EntityState<T> {
   ids: string[] | number[];
   entities: Dictionary<T>;
+  change: Operation;
 }
 
 export interface EntityDefinition<T> {

@@ -34,6 +34,7 @@ export function createSortedStateAdapter<T>(selectId: any, sort: any): any {
     if (models.length === 0) {
       return DidMutate.None;
     } else {
+      state.change = { action: 'U', ids: models.map(model => selectId(model)) };
       merge(models, state);
       return DidMutate.Both;
     }
@@ -93,6 +94,10 @@ export function createSortedStateAdapter<T>(selectId: any, sort: any): any {
         }
       });
 
+      state.change = {
+        action: 'U',
+        ids: updatedIndexes.map(idx => state.ids[idx]),
+      };
       merge(models, state);
 
       if (
